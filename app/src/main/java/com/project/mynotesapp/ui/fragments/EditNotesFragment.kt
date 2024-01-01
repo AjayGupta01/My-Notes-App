@@ -29,32 +29,33 @@ import java.text.DateFormat
 import java.text.Format
 import java.util.Date
 
-class EditNotesFragment : Fragment(R.layout.fragment_edit_notes),MenuProvider,SearchView.OnQueryTextListener {
+class EditNotesFragment : Fragment(R.layout.fragment_edit_notes),MenuProvider {
 
     val notesData by navArgs<EditNotesFragmentArgs>()
-    private lateinit var binding:FragmentEditNotesBinding
+    private var editNoteBinding:FragmentEditNotesBinding? = null
+    private val binding get() = editNoteBinding!!
     private val notesViewModel:NotesViewModel by viewModels()
+    private lateinit var editNoteView: View
     private var priority="1"
-    private lateinit var addNoteView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding=FragmentEditNotesBinding.inflate(inflater,container,false)
+        editNoteBinding=FragmentEditNotesBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addNoteView=view
+        editNoteView=view
 
         gettingOldValue(notesData)
         settingNewPriority()
 
         binding.doneBtn.setOnClickListener{
-            settingNewValue(view)
+            settingNewValue(editNoteView)
         }
 
         val menuHost:MenuHost=requireActivity()
@@ -62,7 +63,12 @@ class EditNotesFragment : Fragment(R.layout.fragment_edit_notes),MenuProvider,Se
 
     }
 
-    private fun settingNewValue(it:View?) {
+    override fun onDestroy() {
+        super.onDestroy()
+        editNoteBinding=null
+    }
+
+    private fun settingNewValue(editNoteView:View) {
         binding.apply {
             val title=titleOfEditNotes.text.toString()
             val subtitle=subTitleOfEditNotes.text.toString()
@@ -73,8 +79,7 @@ class EditNotesFragment : Fragment(R.layout.fragment_edit_notes),MenuProvider,Se
 
             notesViewModel.updateNotes(NotesEntity(id=id,title=title,subtitle=subtitle,notes=notes,date=date,priority=priority))
             Toast.makeText(requireContext(),"Notes Updated Successfully...",Toast.LENGTH_SHORT).show()
-            it?.findNavController()?.popBackStack(R.id.homeFragment)
-
+            editNoteView.findNavController().popBackStack(R.id.homeFragment,false)
         }
     }
 
@@ -128,44 +133,31 @@ class EditNotesFragment : Fragment(R.layout.fragment_edit_notes),MenuProvider,Se
 
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        TODO("Not yet implemented")
+        menu.clear()
+        menuInflater.inflate(R.menu.delete_menu,menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        TODO("Not yet implemented")
-    }
+        return when(menuItem.itemId){
+            R.id.menuDelete->{
+                val bottomSheetDialog=BottomSheetDialog(requireContext(),R.style.BottomSheetStyle)
+                bottomSheetDialog.setContentView(R.layout.delete_dialog)
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
+                val yesBtn=bottomSheetDialog.findViewById<AppCompatTextView>(R.id.bottomSheetYesBtn)
+                val noBtn=bottomSheetDialog.findViewById<AppCompatTextView>(R.id.bottomSheetNoBtn)
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
+                yesBtn?.setOnClickListener {
+                    notesViewModel.deleteNotes(notesData.NotesData.id!!)
+                    bottomSheetDialog.dismiss()
+                    editNoteView.findNavController().popBackStack(R.id.homeFragment,false)
+                }
+                noBtn?.setOnClickListener {
+                    bottomSheetDialog.dismiss()
+                }
+                bottomSheetDialog.show()
+                true
+            }
+            else->false
+        }
     }
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.delete_menu,menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId==R.id.deleteNote){
-//            val bottomSheetDialog=BottomSheetDialog(requireContext(),R.style.BottomSheetStyle)
-//            bottomSheetDialog.setContentView(R.layout.delete_dialog)
-//
-//
-//            val yesBtn=bottomSheetDialog.findViewById<AppCompatTextView>(R.id.bottomSheetYesBtn)
-//            val noBtn=bottomSheetDialog.findViewById<AppCompatTextView>(R.id.bottomSheetNoBtn)
-//
-//            yesBtn?.setOnClickListener{
-//                notesViewModel.deleteNotes(notesData.NotesData.id!!)
-//                bottomSheetDialog.dismiss()
-//                findNavController().navigate(R.id.action_editNotesFragment_to_homeFragment)
-//            }
-//            noBtn?.setOnClickListener {
-//                bottomSheetDialog.dismiss()
-//            }
-//            bottomSheetDialog.show()
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 }

@@ -20,7 +20,9 @@ import java.util.Date
 
 
 class CreateNotesFragment : Fragment(R.layout.fragment_create_notes) {
-    private lateinit var binding: FragmentCreateNotesBinding
+    private var createNoteBinding: FragmentCreateNotesBinding? = null
+    private val binding get() = createNoteBinding!!
+
     private val notesViewModel: NotesViewModel by viewModels()
     var priority= "1"
 
@@ -28,7 +30,12 @@ class CreateNotesFragment : Fragment(R.layout.fragment_create_notes) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=FragmentCreateNotesBinding.inflate(inflater,container,false)
+        createNoteBinding=FragmentCreateNotesBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
 
@@ -36,27 +43,28 @@ class CreateNotesFragment : Fragment(R.layout.fragment_create_notes) {
             settingPriority()
 
             saveNotesBtn.setOnClickListener {
-                createNote(it)
+                createNote(view)
             }
         }
-
-        return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        createNoteBinding=null
+    }
 
-
-    private fun createNote(it: View?) {
+    private fun createNote(createNoteView: View) {
         binding.apply {
             val title=titleOfCreateNotes.text.toString()
             val subtitle=subtitleOfCreateNotes.text.toString()
             val notes=contentOfCreateNotes.text.toString()
             val getDate=Date()
-            val date= DateFormat.format("d/MM/yyyy",getDate.time).toString()
+            val date= DateFormat.format("dd/MM/yyyy",getDate.time).toString()
 
             val noteEntity=NotesEntity(null,title,subtitle,notes,date,priority)
             notesViewModel.insertNotes(noteEntity)
             Toast.makeText(requireContext(),"Notes Created Successfully",Toast.LENGTH_SHORT).show()
-            it?.findNavController()?.navigate(R.id.action_createNotesFragment_to_homeFragment)
+            createNoteView.findNavController().popBackStack(R.id.homeFragment,false)
         }
     }
 
