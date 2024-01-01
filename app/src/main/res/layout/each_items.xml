@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/eachItemTemplate"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_12sdp"
+    app:cardBackgroundColor="@color/notes_back">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/priority_of_template"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:src="@drawable/red_dot"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/_12sdp"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/_15sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_of_template"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_28sdp"
+            android:text="Title"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/_18ssp"
+            android:maxLines="1"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/notes_of_template"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title gdfg fg  dgbdf gfgfdgdfgdfggggggggggggggggggggggggggggggggggggggg"
+            android:textColor="#E1DDDD"
+            android:maxLines="7"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/regular"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/date_of_template"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/bold"
+            android:layout_marginTop="@dimen/_7sdp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.card.MaterialCardView>

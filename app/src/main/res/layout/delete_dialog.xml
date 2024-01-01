@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/_12sdp"
+    android:background="@drawable/dialog_border_radius">
+    <View
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_2sdp"
+        android:background="@color/text_color"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you sure want to delete this Note?"
+        android:fontFamily="@font/regular"
+        android:textSize="@dimen/_15ssp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_color"
+        android:padding="@dimen/_20sdp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottomSheetNoBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no"
+        android:fontFamily="@font/regular"
+        android:textColor="@color/black"
+        android:background="@drawable/no_btn"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textSize="@dimen/_14ssp"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/_6sdp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottomSheetYesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/yes"
+        android:fontFamily="@font/regular"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/yes_btn"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/_6sdp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

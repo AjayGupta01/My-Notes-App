@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backg_color"
+    tools:context=".ui.fragments.CreateNotesFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/title_of_create_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edt_txt_shape"
+            android:fontFamily="@font/regular"
+            android:hint="Title"
+            android:maxLines="1"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/hint_color" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/subtitle_of_create_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/edt_txt_shape"
+            android:fontFamily="@font/regular"
+            android:hint="Sub-Title"
+            android:maxLines="1"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/hint_color"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/red_priority_of_create_notes"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:background="@drawable/red_dot"
+                android:padding="@dimen/_2sdp"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/yellow_priority_of_create_notes"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/yellow_dot" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/green_priority_of_create_notes"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:padding="@dimen/_2sdp"
+                android:background="@drawable/green_dot"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/content_of_create_notes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/edt_txt_shape"
+            android:fontFamily="@font/regular"
+            android:gravity="start"
+            android:hint="Notes..."
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/hint_color"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_notes_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/_21sdp"
+        android:backgroundTint="@color/red"
+        android:src="@drawable/check_icon"
+        android:contentDescription="add_icon" />
+
+</FrameLayout>
